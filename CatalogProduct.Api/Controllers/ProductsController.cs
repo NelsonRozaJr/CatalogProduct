@@ -26,12 +26,27 @@ namespace CatalogProduct.Api.Controllers
                 .ToList();
         }
 
-        [HttpGet("{id}", Name = "GetProduct")]
+        [HttpGet("{id:int:min(1)}", Name = "GetProductById")]
         public ActionResult<Product> Get(int id)
         {
             var product = _catalogProductContext.Products
                 .AsNoTracking()
                 .FirstOrDefault(p => p.ProductId == id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return product;
+        }
+
+        [HttpGet("{name:alpha:maxlength(80)}", Name = "GetProductByName")]
+        public ActionResult<Product> Get(string name)
+        {
+            var product = _catalogProductContext.Products
+                .AsNoTracking()
+                .FirstOrDefault(p => p.Name.ToLower() == name.ToLower());
 
             if (product == null)
             {
