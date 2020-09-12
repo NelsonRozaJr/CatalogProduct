@@ -1,4 +1,5 @@
 using CatalogProduct.Api.Context;
+using CatalogProduct.Api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,8 @@ namespace CatalogProduct.Api
         {
             services.AddDbContext<CatalogProductContext>(options => 
                 options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddTransient<IGreeting, Greeting>();
 
             services.AddControllers()
                 .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);

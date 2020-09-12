@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using CatalogProduct.Api.Context;
 using CatalogProduct.Api.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -19,19 +20,21 @@ namespace CatalogProduct.Api.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Product>> Get()
+        public async Task<ActionResult<IEnumerable<Product>>> GetAsync()
         {
-            return _catalogProductContext.Products
+            var products = await _catalogProductContext.Products
                 .AsNoTracking()
-                .ToList();
+                .ToListAsync();
+
+            return products;
         }
 
         [HttpGet("{id:int:min(1)}", Name = "GetProductById")]
-        public ActionResult<Product> Get(int id)
+        public async Task<ActionResult<Product>> GetAsync(int id)
         {
-            var product = _catalogProductContext.Products
+            var product = await _catalogProductContext.Products
                 .AsNoTracking()
-                .FirstOrDefault(p => p.ProductId == id);
+                .FirstOrDefaultAsync(p => p.ProductId == id);
 
             if (product == null)
             {
@@ -42,11 +45,11 @@ namespace CatalogProduct.Api.Controllers
         }
 
         [HttpGet("{name:alpha:maxlength(80)}", Name = "GetProductByName")]
-        public ActionResult<Product> Get(string name)
+        public async Task<ActionResult<Product>> GetAsync(string name)
         {
-            var product = _catalogProductContext.Products
+            var product = await _catalogProductContext.Products
                 .AsNoTracking()
-                .FirstOrDefault(p => p.Name.ToLower() == name.ToLower());
+                .FirstOrDefaultAsync(p => p.Name.ToLower() == name.ToLower());
 
             if (product == null)
             {
