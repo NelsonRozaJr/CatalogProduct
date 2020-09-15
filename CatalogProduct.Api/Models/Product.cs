@@ -1,13 +1,17 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using CatalogProduct.Api.Validations;
 
 namespace CatalogProduct.Api.Models
 {
-    public class Product
+    public class Product : IValidatableObject
     {
         public int ProductId { get; set; }
 
         [Required(ErrorMessage = "O nome é obrigatório")]
+        [FirstLetterUpperCase]
         [StringLength(80, MinimumLength = 5, ErrorMessage = "O nome deve ter entre 5 e 80 caracteres")]
         public string Name { get; set; }
 
@@ -31,5 +35,24 @@ namespace CatalogProduct.Api.Models
         public int CategoryId { get; set; }
 
         public Category Category { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (!string.IsNullOrWhiteSpace(this.Name))
+            {
+                string firstLetter = this.Name[0].ToString();
+                if (firstLetter != firstLetter.ToUpper())
+                {
+                    yield return new ValidationResult("A primeira letra do nome do produto deve ser maiúscula.", 
+                        new[] { nameof(this.Name) });
+                }
+            }
+
+            if (this.Stock < 0)
+            {
+                yield return new ValidationResult("O estoque deve ser maior ou igual a zero.", 
+                    new[] { nameof(this.Stock) });
+            }
+        }
     }
 }
