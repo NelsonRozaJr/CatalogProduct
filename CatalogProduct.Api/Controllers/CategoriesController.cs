@@ -4,6 +4,7 @@ using CatalogProduct.Api.Context;
 using CatalogProduct.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace CatalogProduct.Api.Controllers
 {
@@ -13,14 +14,19 @@ namespace CatalogProduct.Api.Controllers
     {
         private readonly CatalogProductContext _catalogProductContext;
 
-        public CategoriesController(CatalogProductContext catalogProductContext)
+        private readonly ILogger<CategoriesController> _logger;
+
+        public CategoriesController(CatalogProductContext catalogProductContext, ILogger<CategoriesController> logger)
         {
             _catalogProductContext = catalogProductContext;
+            _logger = logger;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<Category>> Get()
         {
+            _logger.LogInformation("========== GET: api/categories ==========");
+
             return _catalogProductContext.Categories
                 .AsNoTracking()
                 .ToList();
@@ -29,6 +35,8 @@ namespace CatalogProduct.Api.Controllers
         [HttpGet("products")]
         public ActionResult<IEnumerable<Category>> GetCategoryProducts()
         {
+            _logger.LogInformation("========== GET: api/categories/products ==========");
+
             return _catalogProductContext.Categories
                 .Include(c => c.Products)
                 .ToList();
@@ -37,6 +45,8 @@ namespace CatalogProduct.Api.Controllers
         [HttpGet("{id}", Name = "GetCategory")]
         public ActionResult<Category> Get(int id)
         {
+            _logger.LogInformation($"========== GET: api/categories/{id} ==========");
+
             var category = _catalogProductContext.Categories
                 .AsNoTracking()
                 .FirstOrDefault(p => p.CategoryId == id);
