@@ -39,9 +39,8 @@ namespace CatalogProduct.Api.Controllers
             _logger.LogInformation("========== GET: api/categories/products ==========");
 
             return _unitOfWork.CategoryRepository
-                .Get()
-                .Include(c => c.Products)
-                .ToList();
+                .GetProducts()
+                .ToArray();
         }
 
         [HttpGet("{id}", Name = "GetCategory")]
