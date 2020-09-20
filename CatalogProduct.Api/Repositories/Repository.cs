@@ -25,6 +25,11 @@ namespace CatalogProduct.Api.Repositories
             return _context.Set<T>().FirstOrDefault(predicate);
         }
 
+        public T GetByName(Expression<Func<T, bool>> predicate)
+        {
+            return _context.Set<T>().FirstOrDefault(predicate);
+        }
+
         public void Add(T entity)
         {
             _context.Set<T>().Add(entity);

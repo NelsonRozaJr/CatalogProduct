@@ -5,6 +5,6 @@ namespace CatalogProduct.Api.Repositories
 {
     public interface ICategoryRepository : IRepository<Category>
     {
-         IEnumerable<Category> GetProducts();
+        IEnumerable<Category> GetProducts();
     }
 }

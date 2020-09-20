@@ -5,6 +5,6 @@ namespace CatalogProduct.Api.Repositories
 {
     public interface IProductRepository : IRepository<Product>
     {
-         IEnumerable<Product> GetByPrice();
+        IEnumerable<Product> GetByPrice();
     }
 }

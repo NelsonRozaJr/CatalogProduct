@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CatalogProduct.Api.Context;
 using CatalogProduct.Api.Models;
+using CatalogProduct.Api.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -12,13 +13,13 @@ namespace CatalogProduct.Api.Controllers
     [Route("api/[controller]")]
     public class CategoriesController : ControllerBase
     {
-        private readonly CatalogProductContext _catalogProductContext;
+        private readonly IUnitOfWork _unitOfWork;
 
         private readonly ILogger<CategoriesController> _logger;
 
-        public CategoriesController(CatalogProductContext catalogProductContext, ILogger<CategoriesController> logger)
+        public CategoriesController(IUnitOfWork unitOfWork, ILogger<CategoriesController> logger)
         {
-            _catalogProductContext = catalogProductContext;
+            _unitOfWork = unitOfWork;
             _logger = logger;
         }
 
@@ -27,8 +28,8 @@ namespace CatalogProduct.Api.Controllers
         {
             _logger.LogInformation("========== GET: api/categories ==========");
 
-            return _catalogProductContext.Categories
-                .AsNoTracking()
+            return _unitOfWork.CategoryRepository
+                .Get()
                 .ToList();
         }
 
@@ -37,7 +38,8 @@ namespace CatalogProduct.Api.Controllers
         {
             _logger.LogInformation("========== GET: api/categories/products ==========");
 
-            return _catalogProductContext.Categories
+            return _unitOfWork.CategoryRepository
+                .Get()
                 .Include(c => c.Products)
                 .ToList();
         }
@@ -47,9 +49,8 @@ namespace CatalogProduct.Api.Controllers
         {
             _logger.LogInformation($"========== GET: api/categories/{id} ==========");
 
-            var category = _catalogProductContext.Categories
-                .AsNoTracking()
-                .FirstOrDefault(p => p.CategoryId == id);
+            var category = _unitOfWork.CategoryRepository
+                .GetById(p => p.CategoryId == id);
 
             if (category == null)
             {
@@ -62,15 +63,10 @@ namespace CatalogProduct.Api.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Category category)
         {
-            _catalogProductContext.Categories.Add(category);
-
-            var inserted = _catalogProductContext.SaveChanges();
-            if (inserted == 1)
-            {
-                return CreatedAtRoute("GetCategory", new { id = category.CategoryId }, category);
-            }
-
-            return BadRequest("An error occurred while creating category.");
+            _unitOfWork.CategoryRepository.Add(category);
+            _unitOfWork.Commit();
+            
+            return CreatedAtRoute("GetCategory", new { id = category.CategoryId }, category);
         }
 
         [HttpPut("{id}")]
@@ -81,35 +77,25 @@ namespace CatalogProduct.Api.Controllers
                 return BadRequest("Invalid category.");
             }
 
-            _catalogProductContext.Categories.Update(category);
+            _unitOfWork.CategoryRepository.Update(category);
+            _unitOfWork.Commit();
 
-            var updated = _catalogProductContext.SaveChanges();
-            if (updated == 1)
-            {
-                return new NoContentResult();
-            }
-
-            return BadRequest("An error occurred while updating category.");
+            return new NoContentResult();
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var category = _catalogProductContext.Categories.Find(id);
+            var category = _unitOfWork.CategoryRepository.GetById(c => c.CategoryId == id);
             if (category == null)
             {
                 return NotFound();
             }
 
-            _catalogProductContext.Categories.Remove(category);
+            _unitOfWork.CategoryRepository.Delete(category);
+            _unitOfWork.Commit();
 
-            var deleted = _catalogProductContext.SaveChanges();
-            if (deleted == 1)
-            {
-                return new NoContentResult();
-            }
-
-            return BadRequest("An error occurred while removing category.");
+            return new NoContentResult();
         }
     }
 }

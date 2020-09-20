@@ -6,14 +6,16 @@ namespace CatalogProduct.Api.Repositories
 {
     public interface IRepository<T>
     {
-         IQueryable<T> Get();
+        IQueryable<T> Get();
 
-         T GetById(Expression<Func<T, bool>> predicate);
+        T GetById(Expression<Func<T, bool>> predicate);
 
-         void Add(T entity);
+        T GetByName(Expression<Func<T, bool>> predicate);
 
-         void Update(T entity);
+        void Add(T entity);
 
-         void Delete(T entity);
+        void Update(T entity);
+
+        void Delete(T entity);
     }
 }

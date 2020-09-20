@@ -2,6 +2,7 @@ using CatalogProduct.Api.Context;
 using CatalogProduct.Api.Extensions;
 using CatalogProduct.Api.Filters;
 using CatalogProduct.Api.Logging;
+using CatalogProduct.Api.Repositories;
 using CatalogProduct.Api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,6 +27,8 @@ namespace CatalogProduct.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            
             services.AddDbContext<CatalogProductContext>(options => 
                 options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
 

@@ -15,7 +15,7 @@ namespace CatalogProduct.Api.Repositories
 
         public IEnumerable<Product> GetByPrice()
         {
-            return Get().OrderBy(p => p.UnitPrice)
+            return Get().OrderByDescending(p => p.UnitPrice)
                 .ToArray();
         }
     }
