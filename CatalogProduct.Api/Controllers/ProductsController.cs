@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using CatalogProduct.Api.Context;
+using CatalogProduct.Api.DTOs;
 using CatalogProduct.Api.Filters;
 using CatalogProduct.Api.Models;
 using CatalogProduct.Api.Repositories;
@@ -16,24 +18,27 @@ namespace CatalogProduct.Api.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public ProductsController(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+
+        public ProductsController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         [HttpGet]
         [ServiceFilter(typeof(ApiLoggingFilter))]
-        public ActionResult<IEnumerable<Product>> Get()
+        public ActionResult<IEnumerable<ProductDto>> Get()
         {
             var products = _unitOfWork.ProductRepository
                 .Get()
                 .ToArray();
 
-            return products;
+            return _mapper.Map<ProductDto[]>(products);
         }
 
         [HttpGet("{id:int:min(1)}", Name = "GetById")]
-        public ActionResult<Product> Get(int id)
+        public ActionResult<ProductDto> Get(int id)
         {
             var product = _unitOfWork.ProductRepository
                 .GetById(p => p.ProductId == id);
@@ -43,11 +48,11 @@ namespace CatalogProduct.Api.Controllers
                 return NotFound();
             }
 
-            return product;
+            return _mapper.Map<ProductDto>(product);
         }
 
         [HttpGet("{name:alpha:maxlength(80)}", Name = "GetByName")]
-        public ActionResult<Product> Get(string name)
+        public ActionResult<ProductDto> Get(string name)
         {
             var product = _unitOfWork.ProductRepository
                 .GetByName(p => p.Name.ToLower() == name.ToLower());
@@ -57,36 +62,40 @@ namespace CatalogProduct.Api.Controllers
                 return NotFound();
             }
 
-            return product;
+            return  _mapper.Map<ProductDto>(product);
         }
 
         [HttpGet("highest-price")]
-        public ActionResult<IEnumerable<Product>> GetByPrice()
+        public ActionResult<IEnumerable<ProductDto>> GetByPrice()
         {
             var products = _unitOfWork.ProductRepository
                 .GetByPrice()
                 .ToArray();
 
-            return products;
+            return _mapper.Map<ProductDto[]>(products);
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Product product)
+        public IActionResult Post([FromBody] ProductDto model)
         {
+            var product = _mapper.Map<Product>(model);
+
             _unitOfWork.ProductRepository.Add(product);
             _unitOfWork.Commit();
 
-            return CreatedAtRoute("GetById", new { id = product.ProductId }, product);
+            return CreatedAtRoute("GetById", new { id = product.ProductId }, _mapper.Map<ProductDto>(product));
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Product product)
+        public IActionResult Put(int id, [FromBody] ProductDto model)
         {
-            if (id != product.ProductId)
+            if (id != model.ProductId)
             {
                 return BadRequest("Invalid product.");
             }
 
+            var product  = _mapper.Map<Product>(model);
+            
             _unitOfWork.ProductRepository.Update(product);
             _unitOfWork.Commit();
 

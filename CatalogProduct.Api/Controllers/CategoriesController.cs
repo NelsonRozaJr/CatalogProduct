@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using CatalogProduct.Api.Context;
+using AutoMapper;
+using CatalogProduct.Api.DTOs;
 using CatalogProduct.Api.Models;
 using CatalogProduct.Api.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace CatalogProduct.Api.Controllers
@@ -16,35 +16,42 @@ namespace CatalogProduct.Api.Controllers
         private readonly IUnitOfWork _unitOfWork;
 
         private readonly ILogger<CategoriesController> _logger;
+        
+        private readonly IMapper _mapper;
 
-        public CategoriesController(IUnitOfWork unitOfWork, ILogger<CategoriesController> logger)
+        public CategoriesController(IUnitOfWork unitOfWork, ILogger<CategoriesController> logger, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Category>> Get()
+        public ActionResult<IEnumerable<CategoryDto>> Get()
         {
             _logger.LogInformation("========== GET: api/categories ==========");
 
-            return _unitOfWork.CategoryRepository
+            var categories = _unitOfWork.CategoryRepository
                 .Get()
                 .ToList();
+
+            return _mapper.Map<CategoryDto[]>(categories);
         }
 
         [HttpGet("products")]
-        public ActionResult<IEnumerable<Category>> GetCategoryProducts()
+        public ActionResult<IEnumerable<CategoryDto>> GetCategoryProducts()
         {
             _logger.LogInformation("========== GET: api/categories/products ==========");
 
-            return _unitOfWork.CategoryRepository
+            var categories = _unitOfWork.CategoryRepository
                 .GetProducts()
                 .ToArray();
+
+            return _mapper.Map<CategoryDto[]>(categories);
         }
 
         [HttpGet("{id}", Name = "GetCategory")]
-        public ActionResult<Category> Get(int id)
+        public ActionResult<CategoryDto> Get(int id)
         {
             _logger.LogInformation($"========== GET: api/categories/{id} ==========");
 
@@ -56,25 +63,29 @@ namespace CatalogProduct.Api.Controllers
                 return NotFound();
             }
 
-            return category;
+            return _mapper.Map<CategoryDto>(category);
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Category category)
+        public IActionResult Post([FromBody] CategoryDto model)
         {
+            var category = _mapper.Map<Category>(model);
+
             _unitOfWork.CategoryRepository.Add(category);
             _unitOfWork.Commit();
             
-            return CreatedAtRoute("GetCategory", new { id = category.CategoryId }, category);
+            return CreatedAtRoute("GetCategory", new { id = category.CategoryId }, _mapper.Map<CategoryDto>(category));
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Category category)
+        public IActionResult Put(int id, [FromBody] CategoryDto model)
         {
-            if (id != category.CategoryId)
+            if (id != model.CategoryId)
             {
                 return BadRequest("Invalid category.");
             }
+
+            var category = _mapper.Map<Category>(model);
 
             _unitOfWork.CategoryRepository.Update(category);
             _unitOfWork.Commit();

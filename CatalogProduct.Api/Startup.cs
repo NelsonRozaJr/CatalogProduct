@@ -1,4 +1,6 @@
+using AutoMapper;
 using CatalogProduct.Api.Context;
+using CatalogProduct.Api.DTOs.Mappings;
 using CatalogProduct.Api.Extensions;
 using CatalogProduct.Api.Filters;
 using CatalogProduct.Api.Logging;
@@ -35,6 +37,14 @@ namespace CatalogProduct.Api
             services.AddTransient<IGreeting, Greeting>();
 
             services.AddScoped<ApiLoggingFilter>();
+
+            var mappingConfig = new MapperConfiguration(config =>
+            {
+                config.AddProfile<MappingProfile>();
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
             services.AddControllers()
                 .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
