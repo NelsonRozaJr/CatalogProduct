@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CatalogProduct.Api.Models;
 
 namespace CatalogProduct.Api.Repositories
 {
     public interface IProductRepository : IRepository<Product>
     {
-        IEnumerable<Product> GetByPrice();
+        Task<IEnumerable<Product>> GetByPrice();
     }
 }

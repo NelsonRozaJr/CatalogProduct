@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using CatalogProduct.Api.Context;
 using CatalogProduct.Api.Models;
 using Microsoft.EntityFrameworkCore;
@@ -12,10 +13,10 @@ namespace CatalogProduct.Api.Repositories
         {
         }
 
-        public IEnumerable<Category> GetProducts()
+        public async Task<IEnumerable<Category>> GetProducts()
         {
-            return Get().Include(c => c.Products)
-                .ToArray();
+            return await Get().Include(c => c.Products)
+                .ToArrayAsync();
         }
     }
 }

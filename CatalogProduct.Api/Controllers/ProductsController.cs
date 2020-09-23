@@ -28,19 +28,19 @@ namespace CatalogProduct.Api.Controllers
 
         [HttpGet]
         [ServiceFilter(typeof(ApiLoggingFilter))]
-        public ActionResult<IEnumerable<ProductDto>> Get()
+        public async Task<ActionResult<IEnumerable<ProductDto>>> Get()
         {
-            var products = _unitOfWork.ProductRepository
+            var products = await _unitOfWork.ProductRepository
                 .Get()
-                .ToArray();
+                .ToArrayAsync();
 
             return _mapper.Map<ProductDto[]>(products);
         }
 
         [HttpGet("{id:int:min(1)}", Name = "GetById")]
-        public ActionResult<ProductDto> Get(int id)
+        public async Task<ActionResult<ProductDto>> Get(int id)
         {
-            var product = _unitOfWork.ProductRepository
+            var product = await _unitOfWork.ProductRepository
                 .GetById(p => p.ProductId == id);
 
             if (product == null)
@@ -52,9 +52,9 @@ namespace CatalogProduct.Api.Controllers
         }
 
         [HttpGet("{name:alpha:maxlength(80)}", Name = "GetByName")]
-        public ActionResult<ProductDto> Get(string name)
+        public async Task<ActionResult<ProductDto>> Get(string name)
         {
-            var product = _unitOfWork.ProductRepository
+            var product = await _unitOfWork.ProductRepository
                 .GetByName(p => p.Name.ToLower() == name.ToLower());
 
             if (product == null)
@@ -66,28 +66,27 @@ namespace CatalogProduct.Api.Controllers
         }
 
         [HttpGet("highest-price")]
-        public ActionResult<IEnumerable<ProductDto>> GetByPrice()
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetByPrice()
         {
-            var products = _unitOfWork.ProductRepository
-                .GetByPrice()
-                .ToArray();
+            var products = await _unitOfWork.ProductRepository
+                .GetByPrice();
 
             return _mapper.Map<ProductDto[]>(products);
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] ProductDto model)
+        public async Task<IActionResult> Post([FromBody] ProductDto model)
         {
             var product = _mapper.Map<Product>(model);
 
             _unitOfWork.ProductRepository.Add(product);
-            _unitOfWork.Commit();
+            await _unitOfWork.Commit();
 
             return CreatedAtRoute("GetById", new { id = product.ProductId }, _mapper.Map<ProductDto>(product));
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] ProductDto model)
+        public async Task<IActionResult> Put(int id, [FromBody] ProductDto model)
         {
             if (id != model.ProductId)
             {
@@ -97,22 +96,22 @@ namespace CatalogProduct.Api.Controllers
             var product  = _mapper.Map<Product>(model);
             
             _unitOfWork.ProductRepository.Update(product);
-            _unitOfWork.Commit();
+            await _unitOfWork.Commit();
 
             return new NoContentResult();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var product = _unitOfWork.ProductRepository.GetById(p => p.ProductId == id);
+            var product = await _unitOfWork.ProductRepository.GetById(p => p.ProductId == id);
             if (product == null)
             {
                 return NotFound();
             }
 
             _unitOfWork.ProductRepository.Delete(product);
-            _unitOfWork.Commit();
+            await _unitOfWork.Commit();
 
             return new NoContentResult();
         }

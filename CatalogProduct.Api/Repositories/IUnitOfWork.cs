@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace CatalogProduct.Api.Repositories
 {
     public interface IUnitOfWork
@@ -6,6 +8,6 @@ namespace CatalogProduct.Api.Repositories
 
          ICategoryRepository CategoryRepository { get; }
 
-         void Commit();
+         Task Commit();
     }
 }
