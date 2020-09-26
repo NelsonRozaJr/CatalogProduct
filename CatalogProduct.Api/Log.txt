@@ -210,3 +210,192 @@ Information: 0 - ##################################################
 Information: 0 - 21:22:58
 Information: 0 - ##################################################
 Information: 0 - Application is shutting down...
+Information: 0 - Now listening on: https://localhost:5001
+Information: 0 - Now listening on: http://localhost:5000
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: D:\Documents\Visual Studio 2019\Projects\CatalogProduct\CatalogProduct.Api
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ##################################################
+Information: 0 - 20:35:41
+Information: 0 - ModelState: True
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ##################################################
+Information: 0 - 20:35:41
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ##################################################
+Information: 0 - 20:35:56
+Information: 0 - ModelState: True
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ##################################################
+Information: 0 - 20:35:56
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ##################################################
+Information: 0 - 20:36:02
+Information: 0 - ModelState: True
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ##################################################
+Information: 0 - 20:36:02
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ##################################################
+Information: 0 - 20:36:06
+Information: 0 - ModelState: True
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ##################################################
+Information: 0 - 20:36:06
+Information: 0 - ##################################################
+Information: 0 - Application is shutting down...
+Information: 0 - Now listening on: https://localhost:5001
+Information: 0 - Now listening on: http://localhost:5000
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: D:\Documents\Visual Studio 2019\Projects\CatalogProduct\CatalogProduct.Api
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ##################################################
+Information: 0 - 20:36:49
+Information: 0 - ModelState: True
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ##################################################
+Information: 0 - 20:36:49
+Information: 0 - ##################################################
+Information: 0 - Application is shutting down...
+Information: 0 - Now listening on: https://localhost:5001
+Information: 0 - Now listening on: http://localhost:5000
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: D:\Documents\Visual Studio 2019\Projects\CatalogProduct\CatalogProduct.Api
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ##################################################
+Information: 0 - 22:03:00
+Information: 0 - ModelState: True
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ##################################################
+Information: 0 - 22:03:01
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ##################################################
+Information: 0 - 22:05:40
+Information: 0 - ModelState: True
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ##################################################
+Information: 0 - 22:05:40
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ##################################################
+Information: 0 - 22:05:50
+Information: 0 - ModelState: True
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ##################################################
+Information: 0 - 22:05:50
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ##################################################
+Information: 0 - 22:06:20
+Information: 0 - ModelState: True
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ##################################################
+Information: 0 - 22:06:20
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ##################################################
+Information: 0 - 22:08:38
+Information: 0 - ModelState: True
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ##################################################
+Information: 0 - 22:08:38
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ##################################################
+Information: 0 - 22:09:19
+Information: 0 - ModelState: True
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ##################################################
+Information: 0 - 22:09:19
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ##################################################
+Information: 0 - 22:11:46
+Information: 0 - ModelState: True
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ##################################################
+Information: 0 - 22:11:47
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ##################################################
+Information: 0 - 22:11:58
+Information: 0 - ModelState: True
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ##################################################
+Information: 0 - 22:11:58
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ##################################################
+Information: 0 - 22:17:43
+Information: 0 - ModelState: True
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ##################################################
+Information: 0 - 22:17:43
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ##################################################
+Information: 0 - 22:18:31
+Information: 0 - ModelState: True
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ##################################################
+Information: 0 - 22:18:31
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ##################################################
+Information: 0 - 22:18:36
+Information: 0 - ModelState: True
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ##################################################
+Information: 0 - 22:18:36
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ##################################################
+Information: 0 - 22:18:40
+Information: 0 - ModelState: True
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ##################################################
+Information: 0 - 22:18:40
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ##################################################
+Information: 0 - 22:21:04
+Information: 0 - ModelState: True
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ##################################################
+Information: 0 - 22:21:04
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ##################################################
+Information: 0 - 22:21:09
+Information: 0 - ModelState: True
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ##################################################
+Information: 0 - 22:21:09
+Information: 0 - ##################################################
+Information: 0 - Application is shutting down...

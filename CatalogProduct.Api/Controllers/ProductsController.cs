@@ -6,9 +6,11 @@ using CatalogProduct.Api.Context;
 using CatalogProduct.Api.DTOs;
 using CatalogProduct.Api.Filters;
 using CatalogProduct.Api.Models;
+using CatalogProduct.Api.Pagination;
 using CatalogProduct.Api.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace CatalogProduct.Api.Controllers
 {
@@ -28,13 +30,24 @@ namespace CatalogProduct.Api.Controllers
 
         [HttpGet]
         [ServiceFilter(typeof(ApiLoggingFilter))]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> Get()
+        public ActionResult<IEnumerable<ProductDto>> Get([FromQuery] ProductParameters parameters)
         {
-            var products = await _unitOfWork.ProductRepository
-                .Get()
-                .ToArrayAsync();
+            var productsPaged = _unitOfWork.ProductRepository
+                .GetProducts(parameters);
 
-            return _mapper.Map<ProductDto[]>(products);
+            var metadata = new 
+            {
+                productsPaged.TotalCount,
+                productsPaged.PageSize,
+                productsPaged.CurrentPage,
+                productsPaged.TotalPages,
+                productsPaged.HasNext,
+                productsPaged.HasPrevious
+            };
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+
+            return _mapper.Map<ProductDto[]>(productsPaged);
         }
 
         [HttpGet("{id:int:min(1)}", Name = "GetById")]

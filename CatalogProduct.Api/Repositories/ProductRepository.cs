@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using CatalogProduct.Api.Context;
 using CatalogProduct.Api.Models;
+using CatalogProduct.Api.Pagination;
 using Microsoft.EntityFrameworkCore;
 
 namespace CatalogProduct.Api.Repositories
@@ -19,6 +20,12 @@ namespace CatalogProduct.Api.Repositories
         {
             return await Get().OrderByDescending(p => p.UnitPrice)
                 .ToArrayAsync();
+        }
+
+        public PagedList<Product> GetProducts(ProductParameters parameters)
+        {
+            var source = Get().OrderBy(p => p.Name);
+            return PagedList<Product>.ToPagedList(source, parameters.PageNumber, parameters.PageSize);
         }
     }
 }
