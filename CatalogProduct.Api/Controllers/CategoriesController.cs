@@ -31,7 +31,7 @@ namespace CatalogProduct.Api.Controllers
         }
 
         [HttpGet]
-        public async ActionResult<IEnumerable<CategoryDto>> Get([FromQuery] CategoryParameters parameters)
+        public ActionResult<IEnumerable<CategoryDto>> Get([FromQuery] CategoryParameters parameters)
         {
             var categoriesPaged = _unitOfWork.CategoryRepository
                 .GetCategories(parameters);
