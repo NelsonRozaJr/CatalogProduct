@@ -4,10 +4,12 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CatalogProduct.Api.DTOs;
 using CatalogProduct.Api.Models;
+using CatalogProduct.Api.Pagination;
 using CatalogProduct.Api.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace CatalogProduct.Api.Controllers
 {
@@ -29,15 +31,24 @@ namespace CatalogProduct.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CategoryDto>>> Get()
+        public async ActionResult<IEnumerable<CategoryDto>> Get([FromQuery] CategoryParameters parameters)
         {
-            _logger.LogInformation("========== GET: api/categories ==========");
+            var categoriesPaged = _unitOfWork.CategoryRepository
+                .GetCategories(parameters);
 
-            var categories = await _unitOfWork.CategoryRepository
-                .Get()
-                .ToListAsync();
+            var metadata = new 
+            {
+                categoriesPaged.TotalCount,
+                categoriesPaged.PageSize,
+                categoriesPaged.CurrentPage,
+                categoriesPaged.TotalPages,
+                categoriesPaged.HasNext,
+                categoriesPaged.HasPrevious
+            };
 
-            return _mapper.Map<CategoryDto[]>(categories);
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+
+            return _mapper.Map<CategoryDto[]>(categoriesPaged);
         }
 
         [HttpGet("products")]
