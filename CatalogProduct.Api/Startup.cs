@@ -8,6 +8,7 @@ using CatalogProduct.Api.Repositories;
 using CatalogProduct.Api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,6 +34,10 @@ namespace CatalogProduct.Api
             
             services.AddDbContext<CatalogProductContext>(options => 
                 options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<CatalogProductContext>()
+                .AddDefaultTokenProviders();
 
             services.AddTransient<IGreeting, Greeting>();
 
@@ -69,6 +74,8 @@ namespace CatalogProduct.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

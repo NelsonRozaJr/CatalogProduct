@@ -399,3 +399,18 @@ Information: 0 - ##################################################
 Information: 0 - 22:21:09
 Information: 0 - ##################################################
 Information: 0 - Application is shutting down...
+Information: 0 - Now listening on: https://localhost:5001
+Information: 0 - Now listening on: http://localhost:5000
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: D:\Documents\Visual Studio 2019\Projects\CatalogProduct\CatalogProduct.Api
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ##################################################
+Information: 0 - 15:58:38
+Information: 0 - ModelState: True
+Information: 0 - ##################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ##################################################
+Information: 0 - 15:58:40
+Information: 0 - ##################################################
+Information: 0 - Application is shutting down...

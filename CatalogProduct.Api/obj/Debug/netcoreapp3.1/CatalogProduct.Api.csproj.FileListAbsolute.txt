@@ -59,3 +59,8 @@ D:\Documents\Visual Studio 2019\Projects\CatalogProduct\CatalogProduct.Api\bin\D
 D:\Documents\Visual Studio 2019\Projects\CatalogProduct\CatalogProduct.Api\obj\Debug\netcoreapp3.1\CatalogProduct.Api.csproj.CopyComplete
 D:\Documents\Visual Studio 2019\Projects\CatalogProduct\CatalogProduct.Api\bin\Debug\netcoreapp3.1\AutoMapper.dll
 D:\Documents\Visual Studio 2019\Projects\CatalogProduct\CatalogProduct.Api\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\Documents\Visual Studio 2019\Projects\CatalogProduct\CatalogProduct.Api\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\Documents\Visual Studio 2019\Projects\CatalogProduct\CatalogProduct.Api\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\Documents\Visual Studio 2019\Projects\CatalogProduct\CatalogProduct.Api\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\Documents\Visual Studio 2019\Projects\CatalogProduct\CatalogProduct.Api\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
+D:\Documents\Visual Studio 2019\Projects\CatalogProduct\CatalogProduct.Api\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll
