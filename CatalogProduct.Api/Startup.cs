@@ -1,3 +1,4 @@
+using System.Text;
 using AutoMapper;
 using CatalogProduct.Api.Context;
 using CatalogProduct.Api.DTOs.Mappings;
@@ -6,6 +7,7 @@ using CatalogProduct.Api.Filters;
 using CatalogProduct.Api.Logging;
 using CatalogProduct.Api.Repositories;
 using CatalogProduct.Api.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -14,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 
 namespace CatalogProduct.Api
@@ -38,6 +41,18 @@ namespace CatalogProduct.Api
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<CatalogProductContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidAudience = Configuration["TokenConfigurations:Audience"],
+                    ValidIssuer = Configuration["TokenConfigurations:Issuer"],
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                });
 
             services.AddTransient<IGreeting, Greeting>();
 
