@@ -38,7 +38,7 @@ namespace CatalogProduct.Api
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             
             services.AddDbContext<CatalogProductContext>(options => 
-                options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseMySQL(Configuration["ConnectionStrings:DefaultConnection"]));
 
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<CatalogProductContext>()
